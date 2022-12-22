@@ -32,5 +32,5 @@ jobs:
           release: R2020b
 
       # Runs a set of commands using the runners shell
-      - name: Run MATLAB tests
-        run: matlab-actions/run-tests@v1 
+      - name: Run MATLAB Tests
+        uses: matlab-actions/run-tests@v1.3.2
