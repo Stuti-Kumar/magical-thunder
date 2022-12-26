@@ -37,8 +37,14 @@ jobs:
         with:
           test-results-junit: test-results/results.xml
           code-coverage-cobertura: code-coverage/coverage.xml
-          
-      - name: Verify artifacts generation
-        run: |
-            (test -f test-results/results.xml) || (echo "File results.xml does not exist" && exit 1)
-            (test -f code-coverage/coverage.xml) || (echo "File coverage.xml does not exist" && exit 1)
+  release-project:
+    name: Release Project
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: static-site
+    - name: Test artifact download
+      run: ls -R
