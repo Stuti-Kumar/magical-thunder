@@ -62,8 +62,8 @@ jobs:
       - name: Run MATLAB Tests
         uses: matlab-actions/run-tests@v1.3.2
         with:
-          test-results-junit: test-results/results.xml
-          code-coverage-cobertura: code-coverage/coverage.xml
+          test-results-junit: test-results/results22.xml
+          code-coverage-cobertura: code-coverage/coverage22.xml
   # release-project:
     # name: Release Project
     # runs-on: ubuntu-latest
