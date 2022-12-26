@@ -40,7 +40,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: my-artifact
+          name: my-artifact-20
           path: ${{ github.workspace }}
 
   build-on-TwentyTwo:
@@ -78,5 +78,5 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-         name: my-artifact
+         name: my-artifact-22
          path: ${{ github.workspace }}
