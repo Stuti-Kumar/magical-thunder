@@ -29,7 +29,7 @@ jobs:
       - name: Set up MATLAB on Runner
         uses: matlab-actions/setup-matlab@v1
         with:
-          release: R2020b
+          release: R2020b,R2022b
 
       # Runs a set of commands using the runners shell
       - name: Run MATLAB Tests
