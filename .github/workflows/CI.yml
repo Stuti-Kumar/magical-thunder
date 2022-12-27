@@ -37,6 +37,7 @@ jobs:
         with:
           test-results-junit: test-results/results.xml
           code-coverage-cobertura: code-coverage/coverage.xml
+          select-by-folder: UnitTest
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -64,6 +65,7 @@ jobs:
         with:
           test-results-junit: test-results/results22.xml
           code-coverage-cobertura: code-coverage/coverage22.xml
+          select-by-folder: UnitTest
   # release-project:
     # name: Release Project
     # runs-on: ubuntu-latest
