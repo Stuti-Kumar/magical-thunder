@@ -37,12 +37,12 @@ jobs:
              command: RunMyTests
              
       # Runs a set of commands using the runners shell
-      - name: Run MATLAB Tests
-        uses: matlab-actions/run-tests@v1.3.2
-        with:
-          test-results-junit: test-results/results.xml
-          code-coverage-cobertura: code-coverage/coverage.xml
-          #select-by-folder: UnitTest
+      #- name: Run MATLAB Tests
+       # uses: matlab-actions/run-tests@v1.3.2
+       # with:
+         # test-results-junit: test-results/results.xml
+         # code-coverage-cobertura: code-coverage/coverage.xml
+        #  #select-by-folder: UnitTest
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
