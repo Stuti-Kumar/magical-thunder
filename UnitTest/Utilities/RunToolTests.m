@@ -37,81 +37,81 @@ import matlab.unittest.plugins.codecoverage.CoberturaFormat
 
 enterpriseRepoPath = fileparts(fileparts(fileparts(which(mfilename))));
 
-try
-    prj=simulinkproject;
-    prj.close;
-catch 
-end
+% try
+%     prj=simulinkproject;
+%     prj.close;
+% catch 
+% end
 
-if ispc
-    for i = 'A':'Z'
-        tempFolderPath = [i ':'];
-        status = system(['subst ' tempFolderPath ' ' enterpriseRepoPath]);
-        if ~status
-            cd(tempFolderPath)
-            break
-        elseif status && (i == 'Z')
-            tempFolderPath = enterpriseRepoPath;
-        end
-    end
-else
-    tempFolderPath = enterpriseRepoPath;
-    status = true;
-end
+% if ispc
+%     for i = 'A':'Z'
+%         tempFolderPath = [i ':'];
+%         status = system(['subst ' tempFolderPath ' ' enterpriseRepoPath]);
+%         if ~status
+%             cd(tempFolderPath)
+%             break
+%         elseif status && (i == 'Z')
+%             tempFolderPath = enterpriseRepoPath;
+%         end
+%     end
+% else
+%     tempFolderPath = enterpriseRepoPath;
+%     status = true;
+% end
 
-currPath = pwd;
-utilitiesPath = fullfile(tempFolderPath, 'UnitTests', 'Utilities');
-unitTestsPath = fileparts(utilitiesPath);
-srcPath = fullfile(fileparts(unitTestsPath),'Source');
-testingRepoPath = fullfile(unitTestsPath, 'Tests', 'ExampleMBSDProject');
-artifactEntToolsPath = fullfile(unitTestsPath,'Tests', 'Artifacts', 'EnterpriseTools');
-toolTestingPrj = fullfile(unitTestsPath, 'EnterpriseToolTestAutomation.prj');
-artifactEmbToolsPath = fullfile(unitTestsPath,'Tests', 'Artifacts', 'ControlsModels', 'EmbeddedTools');
-examplePrjEmbPath = fullfile(testingRepoPath, 'ControlsModels', 'EmbeddedTools');
+% currPath = pwd;
+% utilitiesPath = fullfile(tempFolderPath, 'UnitTests', 'Utilities');
+% unitTestsPath = fileparts(utilitiesPath);
+% srcPath = fullfile(fileparts(unitTestsPath),'Source');
+% testingRepoPath = fullfile(unitTestsPath, 'Tests', 'ExampleMBSDProject');
+% artifactEntToolsPath = fullfile(unitTestsPath,'Tests', 'Artifacts', 'EnterpriseTools');
+% toolTestingPrj = fullfile(unitTestsPath, 'EnterpriseToolTestAutomation.prj');
+% artifactEmbToolsPath = fullfile(unitTestsPath,'Tests', 'Artifacts', 'ControlsModels', 'EmbeddedTools');
+% examplePrjEmbPath = fullfile(testingRepoPath, 'ControlsModels', 'EmbeddedTools');
+% 
+% addpath(utilitiesPath);
+% 
+% cd(testingRepoPath);
+% 
+% [tag, ~] = findTagFromSrcJSON(srcPath);
+% 
+% [latestDistTagFound,~, ~] = updateVersionInPkgJSON('@deere-embedded/mbsd.embedded-tools',tag);
+% if ~latestDistTagFound
+%     disp(['Could not install ' tag ' tag for Embedded Tools so Aborting tests..!!'])
+%     return
+% end
+% 
+% system('npm install');
+% 
+% removeDir(artifactEmbToolsPath, 5);
+% mkdir(artifactEmbToolsPath);
+% copyDir(examplePrjEmbPath,artifactEmbToolsPath);
+% 
+% removeDir(artifactEntToolsPath,5);
+% mkdir(artifactEntToolsPath);
+% copyFlag = copyDir(srcPath,artifactEntToolsPath);
+% 
+% if ~copyFlag
+%     disp('Could not copy EnterpriseTools from Source to Artifacts so Aborting tests..!!')
+%     return
+% end
+% 
+% cd(currPath)
 
-addpath(utilitiesPath);
-
-cd(testingRepoPath);
-
-[tag, ~] = findTagFromSrcJSON(srcPath);
-
-[latestDistTagFound,~, ~] = updateVersionInPkgJSON('@deere-embedded/mbsd.embedded-tools',tag);
-if ~latestDistTagFound
-    disp(['Could not install ' tag ' tag for Embedded Tools so Aborting tests..!!'])
-    return
-end
-
-system('npm install');
-
-removeDir(artifactEmbToolsPath, 5);
-mkdir(artifactEmbToolsPath);
-copyDir(examplePrjEmbPath,artifactEmbToolsPath);
-
-removeDir(artifactEntToolsPath,5);
-mkdir(artifactEntToolsPath);
-copyFlag = copyDir(srcPath,artifactEntToolsPath);
-
-if ~copyFlag
-    disp('Could not copy EnterpriseTools from Source to Artifacts so Aborting tests..!!')
-    return
-end
-
-cd(currPath)
-
-prj = simulinkproject(toolTestingPrj);
+prj = simulinkproject;
 rootFolder = prj.RootFolder;
 testsFolderPath = 'Tests';
 testSuites = [];
 frequencyTestFiles = [];
 
 
-%%
-if isa(prj,'slproject.ProjectManager')
-    [~,PreTest,~]=findProjectFiles(prj,'Automation','PreTest');
-else
-    [~,PreTest,~]=findProjectFiles('Automation','PreTest');
-end
-RunFiles(PreTest);
+% %
+% if isa(prj,'slproject.ProjectManager')
+%     [~,PreTest,~]=findProjectFiles(prj,'Automation','PreTest');
+% else
+%     [~,PreTest,~]=findProjectFiles('Automation','PreTest');
+% end
+% RunFiles(PreTest);
 
 %% if no arguement is passed - assume that all test suites need to be run
 cd(rootFolder);
@@ -158,32 +158,32 @@ end
 %%
 if ~isempty(testSuites)
     
-    srlFiles = findProjectFiles('Automation','Serial');
-    prllFiles = findProjectFiles('Automation','Parallel'); 
+    srlFiles = 'fancyTest';
+%     prllFiles = findProjectFiles('Automation','Parallel'); 
     
-    if ismember('TestCreateDD',prllFiles)
-        prllFiles = prllFiles(~strcmp(prllFiles,'TestCreateDD'));
-        srlFiles = [srlFiles;'TestCreateDD'];
-    end
-    
-    if verLessThan('matlab', '9.7')
-        for iTestFile = {'Test_Emb32WrapperCreation','Test_Emb32WrapperCreation_EOL','Test_Emb32WrapperCreation_GUI'}
-            prllFiles = prllFiles(~strcmp(prllFiles,iTestFile));
-            srlFiles = srlFiles(~strcmp(srlFiles,iTestFile));
-        end
-    end
-    
-    prllFiles = prllFiles(~strcmp(prllFiles,'Test_ImportExportSBData'));
-    srlFiles = srlFiles(~strcmp(srlFiles,'Test_ImportExportSBData'));
+%     if ismember('TestCreateDD',prllFiles)
+%         prllFiles = prllFiles(~strcmp(prllFiles,'TestCreateDD'));
+%         srlFiles = [srlFiles;'TestCreateDD'];
+%     end
+%     
+%     if verLessThan('matlab', '9.7')
+%         for iTestFile = {'Test_Emb32WrapperCreation','Test_Emb32WrapperCreation_EOL','Test_Emb32WrapperCreation_GUI'}
+%             prllFiles = prllFiles(~strcmp(prllFiles,iTestFile));
+%             srlFiles = srlFiles(~strcmp(srlFiles,iTestFile));
+%         end
+%     end
+%     
+%     prllFiles = prllFiles(~strcmp(prllFiles,'Test_ImportExportSBData'));
+%     srlFiles = srlFiles(~strcmp(srlFiles,'Test_ImportExportSBData'));
     
     testSuiteSrl = filterTestSuite(testSuites,srlFiles);
     
-    testSuitePrll = filterTestSuite(testSuites,prllFiles);    
-    
-    srlResult = {};
-    prllResult = {};
-        
-    codeFilePaths = configureFilesToCover(artifactEntToolsPath);
+%     testSuitePrll = filterTestSuite(testSuites,prllFiles);    
+%     
+%     srlResult = {};
+%     prllResult = {};
+%         
+%     codeFilePaths = configureFilesToCover(artifactEntToolsPath);
     
     if(~isempty(testSuiteSrl))
         runner1 = matlab.unittest.TestRunner.withTextOutput();
@@ -197,7 +197,7 @@ if ~isempty(testSuites)
         
         coverage_report_serial = fullfile(prj.RootFolder,'TestSuitesSerial_Coverage.xml');
         coberturaReportFormat = CoberturaFormat(coverage_report_serial);
-        runner1.addPlugin(CodeCoveragePlugin.forFile(codeFilePaths, 'Producing', coberturaReportFormat));
+%         runner1.addPlugin(CodeCoveragePlugin.forFile(codeFilePaths, 'Producing', coberturaReportFormat));
         
         if ~verLessThan('matlab', '9.7') % html report is not supported in versions less than 2019b
             if(nargin<1)
@@ -207,7 +207,7 @@ if ~isempty(testSuites)
                 coverage_html_report_serial = fullfile(prj.RootFolder, ['CodeCoverageFor' args{:} 'Serial']);
             end
             htmlReportFormat = matlab.unittest.plugins.codecoverage.CoverageReport(coverage_html_report_serial);
-            runner1.addPlugin(CodeCoveragePlugin.forFile(codeFilePaths, 'Producing', htmlReportFormat));
+%             runner1.addPlugin(CodeCoveragePlugin.forFile(codeFilePaths, 'Producing', htmlReportFormat));
         end
         
         try
@@ -222,54 +222,54 @@ if ~isempty(testSuites)
         end
     end
     
-    if(~isempty(testSuitePrll))
-        runner = matlab.unittest.TestRunner.withTextOutput();
-        
-        runner.addPlugin(matlab.unittest.plugins.TestRunProgressPlugin.withVerbosity(1))
-        runner.addPlugin(matlab.unittest.plugins.DiagnosticsRecordingPlugin);
-        
-        junit_report_parallel=fullfile(prj.RootFolder,'TestSuitesParallel_TestReport.xml');
-        xmlPlugin = matlab.unittest.plugins.XMLPlugin.producingJUnitFormat(junit_report_parallel);
-        runner.addPlugin(xmlPlugin);
-        
-        coverage_report_parallel = fullfile(prj.RootFolder,'TestSuitesParallel_Coverage.xml');
-        coberturaReportFormat = CoberturaFormat(coverage_report_parallel);
-        runner.addPlugin(CodeCoveragePlugin.forFile(codeFilePaths, 'Producing', coberturaReportFormat));
-        
-        if ~verLessThan('matlab', '9.7')
-            if(nargin<1)
-                coverage_html_report_parallel = fullfile(prj.RootFolder, 'CodeCoverageForAllPrll');
-            else
-                args = strsplit(varargin{1},'/');
-                coverage_html_report_parallel = fullfile(prj.RootFolder, ['CodeCoverageFor' args{:} 'Prll']);
-            end
-            htmlReportFormat = matlab.unittest.plugins.codecoverage.CoverageReport(coverage_html_report_parallel);
-            runner.addPlugin(CodeCoveragePlugin.forFile(codeFilePaths, 'Producing', htmlReportFormat));
-        end
-        prllResult = runInParallel(runner,testSuitePrll);
-        
-    end
-    [srlResult prllResult]
-    assignin('base','ans',[srlResult prllResult])
+%     if(~isempty(testSuitePrll))
+%         runner = matlab.unittest.TestRunner.withTextOutput();
+%         
+%         runner.addPlugin(matlab.unittest.plugins.TestRunProgressPlugin.withVerbosity(1))
+%         runner.addPlugin(matlab.unittest.plugins.DiagnosticsRecordingPlugin);
+%         
+%         junit_report_parallel=fullfile(prj.RootFolder,'TestSuitesParallel_TestReport.xml');
+%         xmlPlugin = matlab.unittest.plugins.XMLPlugin.producingJUnitFormat(junit_report_parallel);
+%         runner.addPlugin(xmlPlugin);
+%         
+%         coverage_report_parallel = fullfile(prj.RootFolder,'TestSuitesParallel_Coverage.xml');
+%         coberturaReportFormat = CoberturaFormat(coverage_report_parallel);
+%         runner.addPlugin(CodeCoveragePlugin.forFile(codeFilePaths, 'Producing', coberturaReportFormat));
+%         
+%         if ~verLessThan('matlab', '9.7')
+%             if(nargin<1)
+%                 coverage_html_report_parallel = fullfile(prj.RootFolder, 'CodeCoverageForAllPrll');
+%             else
+%                 args = strsplit(varargin{1},'/');
+%                 coverage_html_report_parallel = fullfile(prj.RootFolder, ['CodeCoverageFor' args{:} 'Prll']);
+%             end
+%             htmlReportFormat = matlab.unittest.plugins.codecoverage.CoverageReport(coverage_html_report_parallel);
+%             runner.addPlugin(CodeCoveragePlugin.forFile(codeFilePaths, 'Producing', htmlReportFormat));
+%         end
+%         prllResult = runInParallel(runner,testSuitePrll);
+%         
+%     end
+    [srlResult]
+    assignin('base','ans',[srlResult])
 else
     disp('No Test Suites available to run');
 end
 
 
 %%
-if isa(prj,'slproject.ProjectManager')
-    [~,PostTest,~]=findProjectFiles(prj,'Automation','PostTest');
-else
-    [~,PostTest,~]=findProjectFiles('Automation','PostTest');
-end
-RunFiles(PostTest);
+% if isa(prj,'slproject.ProjectManager')
+%     [~,PostTest,~]=findProjectFiles(prj,'Automation','PostTest');
+% else
+%     [~,PostTest,~]=findProjectFiles('Automation','PostTest');
+% end
+% RunFiles(PostTest);
 %%
-JD_ToolLog;
+
 %%
-if ispc && ~status
-    simulinkproject(fullfile(enterpriseRepoPath, 'UnitTests', 'EnterpriseToolTestAutomation.prj'))
-    system(['subst ' tempFolderPath ' /d']);
-end
+% if ispc && ~status
+%     simulinkproject(fullfile(enterpriseRepoPath, 'UnitTests', 'EnterpriseToolTestAutomation.prj'))
+%     system(['subst ' tempFolderPath ' /d']);
+% end
 
 
 
