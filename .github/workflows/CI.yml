@@ -34,7 +34,7 @@ jobs:
       - name: Run commands
         uses: matlab-actions/run-command@v1.1.2
         with:
-             command: cd('UnitTest'); open('DemoToolTest.prj');
+             command: RunMyTests
              
       # Runs a set of commands using the runners shell
       - name: Run MATLAB Tests
