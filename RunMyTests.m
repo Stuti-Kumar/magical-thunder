@@ -1,2 +1,2 @@
 cd('UnitTest'); 
-open('DemoToolTest.prj');
+prj = simulinkproject('DemoToolTest.prj');
