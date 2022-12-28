@@ -23,7 +23,7 @@ classdef fancyTest < matlab.unittest.TestCase
 % end
 methods(TestMethodSetup)
     function pullDependencies(testCase)
-        
+        disp(pwd)
         % Get details about current testing project
                 curPrj = simulinkproject;
                 testCase.tooltestingPrjRootPath = curPrj.RootFolder;
@@ -36,6 +36,7 @@ methods(TestMethodSetup)
         testCase.testPrj = simulinkproject(fullfile(testCase.demoPrjPath,testCase.demoPrjName));
 %         testCase.testScriptPath = fileparts(which(mfilename));
 %         addpath(testCase.testScriptPath);
+disp(pwd)
     end
 end
     
