@@ -25,11 +25,12 @@ methods(TestMethodSetup)
     function pullDependencies(testCase)
         disp(pwd)
         % Get details about current testing project
+        testCase.testScriptPath = fileparts(which(mfilename));
+        addpath(testCase.testScriptPath);
                 curPrj = simulinkproject;
                 testCase.tooltestingPrjRootPath = curPrj.RootFolder;
                 testCase.demoTTPrj = fullfile(testCase.tooltestingPrjRootPath, testCase.tooltestingPrj);
-         testCase.testScriptPath = fileparts(which(mfilename));
-        addpath(testCase.testScriptPath);
+       
         testCase.artifactsPath = fullfile(testCase.tooltestingPrjRootPath, 'Tests', 'Artifacts');
         testCase.demoPrjName = 'DemoTools.prj';
         testCase.demoPrjPath = fullfile(testCase.artifactsPath,'DemoTools');
