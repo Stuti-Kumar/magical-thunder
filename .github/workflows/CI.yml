@@ -46,7 +46,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: my-artifact-20
+          name: artifact
           path: ${{ github.workspace }}
 
   build-on-TwentyTwo:
