@@ -26,7 +26,7 @@ methods(TestMethodSetup)
         disp(pwd)
 %         % Get details about current testing project
         testCase.testScriptPath = fileparts(which(mfilename));
-        addpath(testCase.testScriptPath);
+       
                 curPrj = currentProject;
                 testCase.tooltestingPrjRootPath = curPrj.RootFolder;
                 testCase.demoTTPrj = fullfile(testCase.tooltestingPrjRootPath, testCase.tooltestingPrj);
@@ -35,11 +35,8 @@ methods(TestMethodSetup)
         testCase.demoPrjName = 'DemoTools.prj';
         testCase.demoPrjPath = fullfile(testCase.artifactsPath,'DemoTools');
         testCase.testPrj = simulinkproject(fullfile(testCase.demoPrjPath,testCase.demoPrjName));        
-%         testCase.testPrj = fullfile(testCase.demoPrjPath,testCase.demoPrjName);
-%       addReference(curPrj, testCase.testPrj, 'relative');
-%       disp('Added reference of Demo tools to Tool Test project successfully..')
-%        testCase.applyFixture(AddDemoToolRefFixture);
-      disp(pwd)
+        addpath(testCase.testScriptPath);
+        disp(pwd)
     end
 end
     
@@ -47,6 +44,11 @@ methods(Test)
 function testCalculation(testCase)
 s = Sum(10,20);
 testCase.assertEqual(s,30);
+end
+
+function checkPath(testCase)
+mypath = which(mfilename); 
+testCase.assertNotEqual(mypath,'Not on MATLAB path')
 end
 end
 
