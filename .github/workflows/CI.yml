@@ -67,7 +67,7 @@ jobs:
       - name: Run commands
         uses: matlab-actions/run-command@v1.1.2
         with:
-             command: RunMyTests22
+             command: RunMyTests
              
       # Runs a set of commands using the runners shell
       #- name: Run MATLAB Tests
