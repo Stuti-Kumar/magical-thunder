@@ -22,7 +22,7 @@ classdef Test_CountConfigFiles < matlab.unittest.TestCase
             curPrj = currentProject;
             testCase.prjRoot = curPrj.RootFolder;
             testCase.demoTTPrj = fullfile(testCase.prjRoot, testCase.tooltestingPrj);
-            testCase.configSetFolderPath = fullfile(testCase.prjRoot, '..\Source\ConfigSet');
+            testCase.configSetFolderPath = fullfile(testCase.prjRoot, 'Tests\Artifacts\DemoTools\ConfigSet');
         end
     end
 
