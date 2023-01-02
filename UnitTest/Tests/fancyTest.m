@@ -24,20 +24,22 @@ classdef fancyTest < matlab.unittest.TestCase
 methods(TestMethodSetup)
     function pullDependencies(testCase)
         disp(pwd)
-        % Get details about current testing project
-        testCase.testScriptPath = fileparts(which(mfilename));
-        addpath(testCase.testScriptPath);
-                curPrj = simulinkproject;
-                testCase.tooltestingPrjRootPath = curPrj.RootFolder;
-                testCase.demoTTPrj = fullfile(testCase.tooltestingPrjRootPath, testCase.tooltestingPrj);
-       
-        testCase.artifactsPath = fullfile(testCase.tooltestingPrjRootPath, 'Tests', 'Artifacts');
-        testCase.demoPrjName = 'DemoTools.prj';
-        testCase.demoPrjPath = fullfile(testCase.artifactsPath,'DemoTools');
-        testCase.testPrj = simulinkproject(fullfile(testCase.demoPrjPath,testCase.demoPrjName));
-%         testCase.testScriptPath = fileparts(which(mfilename));
-%         addpath(testCase.testScriptPath);
-disp(pwd)
+%         % Get details about current testing project
+% % % % %         testCase.testScriptPath = fileparts(which(mfilename));
+% % % % %         addpath(testCase.testScriptPath);
+%                 curPrj = currentProject;
+%                 testCase.tooltestingPrjRootPath = curPrj.RootFolder;
+%                 testCase.demoTTPrj = fullfile(testCase.tooltestingPrjRootPath, testCase.tooltestingPrj);
+%        
+%         testCase.artifactsPath = fullfile(testCase.tooltestingPrjRootPath, 'Tests', 'Artifacts');
+%         testCase.demoPrjName = 'DemoTools.prj';
+%         testCase.demoPrjPath = fullfile(testCase.artifactsPath,'DemoTools');
+% %         testCase.testPrj = simulinkproject(fullfile(testCase.demoPrjPath,testCase.demoPrjName));        
+%         testCase.testPrj = fullfile(testCase.demoPrjPath,testCase.demoPrjName);
+%       addReference(curPrj, testCase.testPrj, 'relative');
+      disp('Added reference of Demo tools to Tool Test project successfully..')
+       testCase.applyFixture(AddDemoToolRefFixture);
+      disp(pwd)
     end
 end
     
@@ -60,17 +62,17 @@ testCase.assertEqual(releaseInfo.Release,"R2022b");
 end
 end
 
-methods(TestMethodTeardown)
-    function deleteCopies(testCase)
-        bdclose all;
-        
-        try
-            prj = simulinkproject;
-            prj.close;
-        catch
-        end
-        simulinkproject(testCase.demoTTPrj)
-    end
-
-end
+% methods(TestMethodTeardown)
+%     function deleteCopies(testCase)
+%         bdclose all;
+%         
+%         try
+%             prj = simulinkproject;
+%             prj.close;
+%         catch
+%         end
+%         simulinkproject(testCase.demoTTPrj)
+%     end
+% 
+% end
 end
