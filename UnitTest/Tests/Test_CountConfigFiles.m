@@ -31,7 +31,7 @@ classdef Test_CountConfigFiles < matlab.unittest.TestCase
          function testCheckAllCOnfigFiles(testCase)
              exist(testCase.configSetFolderPath,'file')
             dir(testCase.configSetFolderPath)
-            allConfigFiles = dir(strcat(testCase.configSetFolderPath, '\*.mat'))
+            allConfigFiles = dir(fullfile(testCase.configSetFolderPath, '\*.mat'))
             allConfigFileNames = {allConfigFiles.name}
             a = numel(contains(allConfigFileNames, testCase.configFiles))
             testCase.verifyEqual(numel(contains(allConfigFileNames, testCase.configFiles)), 2);
