@@ -29,6 +29,8 @@ classdef Test_CountConfigFiles < matlab.unittest.TestCase
     methods(Test)
         % check if all config files are present or not
          function testCheckAllCOnfigFiles(testCase)
+             exist(testCase.configSetFolderPath,'file')
+            dir(testCase.configSetFolderPath)
             allConfigFiles = dir(strcat(testCase.configSetFolderPath, '\*.mat'))
             allConfigFileNames = {allConfigFiles.name}
             a = numel(contains(allConfigFileNames, testCase.configFiles))
