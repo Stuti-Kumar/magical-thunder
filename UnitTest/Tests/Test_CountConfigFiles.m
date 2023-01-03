@@ -21,15 +21,15 @@ classdef Test_CountConfigFiles < matlab.unittest.TestCase
         function configurePath(testCase)
             curPrj = currentProject;
             testCase.prjRoot = curPrj.RootFolder;
-            testCase.demoTTPrj = fullfile(testCase.prjRoot, testCase.tooltestingPrj);
-            testCase.configSetFolderPath = fullfile(testCase.prjRoot, 'Tests\Artifacts\DemoTools\ConfigSet');
+            testCase.demoTTPrj = fullfile(testCase.prjRoot, testCase.tooltestingPrj)
+            testCase.configSetFolderPath = fullfile(testCase.prjRoot, 'Tests\Artifacts\DemoTools\ConfigSet')
         end
     end
 
     methods(Test)
         % check if all config files are present or not
          function testCheckAllCOnfigFiles(testCase)
-            allConfigFiles = dir(strcat(testCase.configSetFolderPath, '\*.mat'));
+            allConfigFiles = dir(strcat(testCase.configSetFolderPath, '\*.mat'))
             allConfigFileNames = {allConfigFiles.name}
             a = numel(contains(allConfigFileNames, testCase.configFiles))
             testCase.verifyEqual(numel(contains(allConfigFileNames, testCase.configFiles)), 2);
