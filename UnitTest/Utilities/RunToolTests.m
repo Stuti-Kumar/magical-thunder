@@ -158,7 +158,7 @@ end
 %%
 if ~isempty(testSuites)
     
-    srlFiles = {'fancyTest','sumTest','Test_CountConfigFiles'};
+    srlFiles = {'fancyTest','sumTest','Test_CountConfigFiles','ModelTest'};
 %     prllFiles = findProjectFiles('Automation','Parallel'); 
     
 %     if ismember('TestCreateDD',prllFiles)
