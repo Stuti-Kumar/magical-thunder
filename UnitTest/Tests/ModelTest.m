@@ -21,7 +21,7 @@ classdef ModelTest < matlab.unittest.TestCase
         ModelPrj = 'TestProject.prj';
         ModelName = 'Calculator.slx';
         ExeName = 'Calculator.exe';
-        
+        SimulinkTestFile = 'testfile.mldatx';
     end
 
 
@@ -65,6 +65,14 @@ methods(Test)
         verifyEqual(testCase, num2str(isfile(fullfile(testCase.workFolder,testCase.ExeName))),'1','code gen not successful');
     end
 
+    function simulateModel(testCase)
+        simulinkproject(fullfile(testCase.tempFolderPath,testCase.ModelPrj));
+        addpath(testCase.testScriptPath);
+        result = runtests(testCase.SimulinkTestFile);
+        rt = table(result);
+        PassedData = rt.Passed == 1;% Check if all test cases are passed
+        testCase.verifyTrue(all(PassedData),1)
+    end
 % function checkPath(testCase)
 % mypath = which(mfilename); 
 % testCase.assertNotEqual(mypath,'Not on MATLAB path')

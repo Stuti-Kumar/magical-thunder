@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HarnessInformation>
+  <ModelMetadata>
+    <P Name="ModelUUID">f0ca4003-76fd-42fa-bee1-b3c199118947</P>
+    <P Name="OwnerBDName">Calculator</P>
+  </ModelMetadata>
+  <Harness>
+    <P Name="Name">Calculator_Harness</P>
+    <P Name="Description"/>
+    <P Name="CreatedBy">sk71149</P>
+    <P Name="CreatedOn">Wed Jan 04 18:15:45 2023</P>
+    <P Name="ModifiedBy">sk71149</P>
+    <P Name="LastSaved">Wed Jan 04 18:38:20 2023</P>
+    <P Name="Owner">bd</P>
+    <P Name="OwnerType">BD_HARNESS</P>
+    <P Name="OwnerPath">.</P>
+    <P Name="Directory"/>
+    <P Name="FileName">Calculator_Harness.slx</P>
+    <P Name="SavedVersion">10.2</P>
+    <P Name="HarnessUUID">620d38cc-9233-445e-96eb-eed89ad98060</P>
+    <P Name="HarnessConnectionsMap">0,1,2,3|0,1|0,0,0,0||</P>
+    <P Name="VerificationMode">0</P>
+    <P Name="HarnessOwnerCheckSum">0,0,0,0</P>
+    <P Name="RebuildOnOpen">false</P>
+    <P Name="RebuildModelData">false</P>
+    <P Name="Graphical">false</P>
+    <P Name="DriveFcnCallWithTS">true</P>
+    <P Name="ScheduleInitTermReset">false</P>
+    <P Name="AutoShapeInputs">false</P>
+    <P Name="SLDVCompatible">no</P>
+    <P Name="SynchronizationMode">1</P>
+    <P Name="IsImported">false</P>
+    <P Name="PostRebuildCB"/>
+    <P Name="IsCodeContext">false</P>
+    <P Name="SchedulerBlock">0</P>
+    <P Name="SourceTypeString">Constant</P>
+    <P Name="SinkTypeString">Outport</P>
+    <P Name="CustomSourcePath"/>
+    <P Name="CustomSinkPath"/>
+    <P Name="BlockSIDs">2|28|0|0|0|42|0</P>
+    <P Name="OpenGraphs"/>
+    <P Name="ExistingBuildFolder"/>
+    <P Name="FunctionInterfaceName"/>
+  </Harness>
+</HarnessInformation>
