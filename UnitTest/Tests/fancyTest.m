@@ -1,4 +1,5 @@
-classdef fancyTest < matlab.unittest.TestCase
+classdef (SharedTestFixtures = {AddDemoToolRefFixture}) ... 
+    fancyTest < matlab.unittest.TestCase
 
     properties
         tooltestingPrjRootPath
@@ -21,7 +22,7 @@ classdef fancyTest < matlab.unittest.TestCase
 % function tests = fancyTest
 % tests = functiontests(localfunctions);
 % end
-methods(TestMethodSetup)
+methods(TestClassSetup)
     function pullDependencies(testCase)
         disp(pwd)
 %         % Get details about current testing project
@@ -38,7 +39,7 @@ methods(TestMethodSetup)
 %         testCase.testPrj = fullfile(testCase.demoPrjPath,testCase.demoPrjName);
 %       addReference(curPrj, testCase.testPrj, 'relative');
       disp('Added reference of Demo tools to Tool Test project successfully..')
-       testCase.applyFixture(AddDemoToolRefFixture);
+%        testCase.applyFixture(AddDemoToolRefFixture);
       disp(pwd)
     end
 end

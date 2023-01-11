@@ -158,8 +158,8 @@ end
 %%
 if ~isempty(testSuites)
     
-    srlFiles = {'fancyTest','sumTest','Test_CountConfigFiles','ModelTest'};
-%     prllFiles = findProjectFiles('Automation','Parallel'); 
+    srlFiles = {'sumTest','Test_CountConfigFiles'};
+    prllFiles = {'fancyTest','ModelTest'}; 
     
 %     if ismember('TestCreateDD',prllFiles)
 %         prllFiles = prllFiles(~strcmp(prllFiles,'TestCreateDD'));
@@ -178,7 +178,7 @@ if ~isempty(testSuites)
     
     testSuiteSrl = filterTestSuite(testSuites,srlFiles);
     
-%     testSuitePrll = filterTestSuite(testSuites,prllFiles);    
+    testSuitePrll = filterTestSuite(testSuites,prllFiles);    
 %     
 %     srlResult = {};
 %     prllResult = {};
@@ -222,9 +222,9 @@ if ~isempty(testSuites)
         end
     end
     
-%     if(~isempty(testSuitePrll))
-%         runner = matlab.unittest.TestRunner.withTextOutput();
-%         
+    if(~isempty(testSuitePrll))
+        runner = matlab.unittest.TestRunner.withTextOutput();
+        
 %         runner.addPlugin(matlab.unittest.plugins.TestRunProgressPlugin.withVerbosity(1))
 %         runner.addPlugin(matlab.unittest.plugins.DiagnosticsRecordingPlugin);
 %         
@@ -234,7 +234,7 @@ if ~isempty(testSuites)
 %         
 %         coverage_report_parallel = fullfile(prj.RootFolder,'TestSuitesParallel_Coverage.xml');
 %         coberturaReportFormat = CoberturaFormat(coverage_report_parallel);
-%         runner.addPlugin(CodeCoveragePlugin.forFile(codeFilePaths, 'Producing', coberturaReportFormat));
+% %         runner.addPlugin(CodeCoveragePlugin.forFile(codeFilePaths, 'Producing', coberturaReportFormat));
 %         
 %         if ~verLessThan('matlab', '9.7')
 %             if(nargin<1)
@@ -244,13 +244,16 @@ if ~isempty(testSuites)
 %                 coverage_html_report_parallel = fullfile(prj.RootFolder, ['CodeCoverageFor' args{:} 'Prll']);
 %             end
 %             htmlReportFormat = matlab.unittest.plugins.codecoverage.CoverageReport(coverage_html_report_parallel);
-%             runner.addPlugin(CodeCoveragePlugin.forFile(codeFilePaths, 'Producing', htmlReportFormat));
+% %             runner.addPlugin(CodeCoveragePlugin.forFile(codeFilePaths, 'Producing', htmlReportFormat));
 %         end
-%         prllResult = runInParallel(runner,testSuitePrll);
-%         
-%     end
-    [srlResult]
-    assignin('base','ans',[srlResult])
+%         suite = matlab.unittest.TestSuite.fromClass(?fancyTest)
+%         prllResult1 = runInParallel(runner,suite);
+%         suite = matlab.unittest.TestSuite.fromClass(?ModelTest)
+%         prllResult = runInParallel(runner,suite);
+        prllResult = runInParallel(runner,testSuitePrll);
+    end
+    [srlResult prllResult]
+    assignin('base','ans',[srlResult prllResult])
 else
     disp('No Test Suites available to run');
 end

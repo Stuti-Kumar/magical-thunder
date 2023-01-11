@@ -1,4 +1,5 @@
-classdef ModelTest < matlab.unittest.TestCase
+classdef (SharedTestFixtures = {AddDemoToolRefFixture}) ... 
+        ModelTest < matlab.unittest.TestCase
 
     properties
         tooltestingPrjRootPath
