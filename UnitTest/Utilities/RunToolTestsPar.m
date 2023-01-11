@@ -158,8 +158,8 @@ end
 %%
 if ~isempty(testSuites)
     
-    srlFiles = {'sumTest','Test_CountConfigFiles','fancyTest','ModelTest'};
-%     prllFiles = {'fancyTest','ModelTest'}; 
+    srlFiles = {'sumTest','Test_CountConfigFiles'};
+    prllFiles = {'fancyTest','ModelTest'}; 
     
 %     if ismember('TestCreateDD',prllFiles)
 %         prllFiles = prllFiles(~strcmp(prllFiles,'TestCreateDD'));
@@ -177,8 +177,8 @@ if ~isempty(testSuites)
 %     srlFiles = srlFiles(~strcmp(srlFiles,'Test_ImportExportSBData'));
     
     testSuiteSrl = filterTestSuite(testSuites,srlFiles);
-    testSuitePrll = [];
-%     testSuitePrll = filterTestSuite(testSuites,prllFiles);    
+    
+    testSuitePrll = filterTestSuite(testSuites,prllFiles);    
 %     
 %     srlResult = {};
 %     prllResult = {};
@@ -250,10 +250,10 @@ if ~isempty(testSuites)
 %         prllResult1 = runInParallel(runner,suite);
 %         suite = matlab.unittest.TestSuite.fromClass(?ModelTest)
 %         prllResult = runInParallel(runner,suite);
-%         prllResult = runInParallel(runner,testSuitePrll);
+        prllResult = runInParallel(runner,testSuitePrll);
     end
-    [srlResult]
-    assignin('base','ans',[srlResult])
+    [srlResult prllResult]
+    assignin('base','ans',[srlResult prllResult])
 else
     disp('No Test Suites available to run');
 end
