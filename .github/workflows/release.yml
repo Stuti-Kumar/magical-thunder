@@ -5,7 +5,7 @@ on:
    
 jobs:
   # This workflow contains a single job called "release"
--  release:
+ - release:
    steps:
    - name: Checkout
      uses: actions/checkout@v3
