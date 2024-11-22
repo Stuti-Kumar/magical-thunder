@@ -26,10 +26,10 @@ jobs:
       - name: Trigger Workflow in Target Repository
         uses: peter-evans/repository-dispatch@v3 #rancher/repository-dispatch@v1
         with:
-            token: "${{ secrets.TARGET_REPO_PAT }}"
+            #token: ${{ secrets.TARGET_REPO_PAT }}
             event_type: my_event_type
-            repository: Stuti-Kumar/BeautifulFlower
-            payload: '{"message":"hello world"}'
+            #repository: Stuti-Kumar/BeautifulFlower
+            #payload: '{"message":"hello world"}'
         # shell: /usr/bin/bash -e {0}
         # env:
         #   GITHUB_TOKEN: ${{ secrets.GHAPPID_TOKEN }}
