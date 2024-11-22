@@ -49,7 +49,7 @@ jobs:
              -H "Accept: application/vnd.github+json" \
              -H "Authorization: token ${{ secrets.TARGET_REPO_PAT }}" \
               https://api.github.com/repos/Stuti-Kumar/BeautifulFlower/actions/workflows/target_workflow_new.yml/dispatches \
-            -d '{"ref":"main"}'
+             -d '{"ref":"trial-branch"}'
              
            
         # run: |
