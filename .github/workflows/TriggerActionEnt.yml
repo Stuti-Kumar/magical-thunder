@@ -23,24 +23,33 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TARGET_REPO_PAT }}
 
-      - name: Trigger Workflow in Target Repository
+      - name: Trigger Workflow in Same Repository
         uses: peter-evans/repository-dispatch@v3 #rancher/repository-dispatch@v1
         with:
             #token: ${{ secrets.TARGET_REPO_PAT }}
             event-type: my_event_type
             #repository: Stuti-Kumar/BeautifulFlower
             #payload: '{"message":"hello world"}'
-        # shell: /usr/bin/bash -e {0}
-        # env:
-        #   GITHUB_TOKEN: ${{ secrets.GHAPPID_TOKEN }}
-        # run: |      
+      
+      - name: Trigger Workflow in Target Repository
+        uses: peter-evans/repository-dispatch@v3 
+        with:
+            token: ${{ secrets.TARGET_REPO_PAT }}
+            event-type: my_event_type
+            repository: Stuti-Kumar/BeautifulFlower
+            client-payload: '{"message":"hello world"}'
 
-        #   curl -X POST 
-        #     -H "Accept: application/vnd.github+json" \
-        #     -H "Authorization: token ${{ secrets.GHAPPID_TOKEN }}"
-        #     -H "X-GitHub-Api-Version: 2022-11-28" 
-        #     https://github.deere.com/api/v3/repos/mbsd/EnterpriseTools/actions/workflows/target_workflow.yml/dispatches 
-        #     -d '{"ref":"trigger-workflow"}'   
+      - name: Trigger via Code
+        shell: /usr/bin/bash -e {0}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GHAPPID_TOKEN }}
+        run: |      
+           curl -X POST 
+             -H "Accept: application/vnd.github+json" \
+             -H "Authorization: token ${{ secrets.GHAPPID_TOKEN }}"
+             -H "X-GitHub-Api-Version: 2022-11-28" 
+             https://api.github.com/repos/Stuti-Kumar/BeautifulFlower/actions/workflows/target_workflow_new.yml/dispatches
+             -d '{"ref":"main"}'   
 
         # run: |
         #   curl -X POST \
