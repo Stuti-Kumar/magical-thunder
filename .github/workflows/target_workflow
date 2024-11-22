@@ -1,0 +1,17 @@
+name: Target Workflow
+
+on:
+  repository_dispatch:
+     types: [my_event_type]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Confirmation
+        run: |
+          echo  "I am here"
